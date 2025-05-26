@@ -7,6 +7,8 @@ import backend.postgres.repositories.UserRepo;
 import backend.services.AuthService;
 import backend.services.FileCleaner;
 import com.sun.net.httpserver.HttpServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
 public class Main {
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) throws IOException {
         int port = 9092;
 
@@ -34,6 +38,7 @@ public class Main {
         server.createContext("/statistic", new StatisticHandler(fileRepository));
         server.setExecutor(Executors.newCachedThreadPool());
         server.start();
+        System.out.println("Server started, port 9092");
 
         //Запуск очистки файлов, которые последний раз скачивали 30 дней назад
         new FileCleaner(fileRepository).start();
