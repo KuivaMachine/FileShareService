@@ -70,6 +70,7 @@ public class FileRepo {
             stmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
             stmt.setTimestamp(7, file.getLast_downloaded());
             stmt.executeUpdate();
+
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
@@ -101,5 +102,10 @@ public class FileRepo {
             log.error(e.getMessage());
         }
         return files;
+    }
+
+    public void deleteById(String fileId) {
+        String sql = String.format("DELETE FROM files WHERE id = '%s'", fileId);
+        executeSql(sql);
     }
 }

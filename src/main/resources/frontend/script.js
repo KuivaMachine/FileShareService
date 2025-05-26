@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     const upload_button = document.getElementById('upload_button');
+    const delete_button = document.getElementById('delete-btn');
     const logoutBtn = document.getElementById('logout-btn');
+    const download_container = document.getElementById('download-container');
     const fileInput = document.getElementById('file-input');
     const username = document.getElementById('username');
     const password = document.getElementById('password');
@@ -11,24 +13,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Проверка авторизации при загрузке страницы
     checkAuth();
-    document.querySelector('#delete_icon').addEventListener('click', function () {
-        document.getElementById('file-name').textContent = 'Файл не выбран';
-        upload_button.style.display = 'none'
-        showMessage('Выберите файл для загрузки');
-    })
+
+    delete_button.addEventListener('commit', function () {
+      linkElement.style.display = 'none'
+      upload_button.style.display = 'none'
+      showMessage('Выберите файл для загрузки');
+     });
+
 
     fileInput.addEventListener('change', function () {
-
         if (this.files.length > 0) {
             upload_button.style.display = 'flex'
-            document.getElementById("file-name").textContent = fileInput.files[0].name
-        } else {
-            fileStatus.textContent = 'Not selected file';
         }
     });
     // Обработка формы входа
     loginForm.addEventListener('submit', async function (e) {
-        e.preventDefault();//предотвращает перезагрузку страницы
+        e.preventDefault(); //предотвращает перезагрузку страницы
 
         let user = username.value.trim();
         let pass = password.value.trim();
@@ -82,12 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
     //Обработка формы загрузки файла
     upload_button.addEventListener('click', async function (e) {
         e.preventDefault();
-
         const file = fileInput.files[0];
         if (file.size > 1073741824) { //примерно 1 Гб
             showMessage("Размер файла не может превышать 1Гб");
             return
         }
+
+        const input = document.querySelector('.input');
+         if (input) input.checked = true;
         showMessage('Загрузка файла...', 'info');
 
         try {
@@ -103,15 +105,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 const data = await response.json();
-                showMessage('Файл успешно загружен', 'success');
-                showDownloadLink(data.downloadUrl);
-                upload_button.style.display = 'none'
-                loadStatistic();
+                               completeUploadAnimation(() => {
+                               showMessage('Файл успешно загружен', 'success');
+                               showDownloadLink(data.downloadUrl);
+                               loadStatistic();
+                               download_container.style.display = 'inline-flex'
+                               upload_button.style.display = 'none';
+                });
+
             }
         } catch (error) {
             showMessage(error);
         }
     });
+ // Функция для завершающей анимации
+    function completeUploadAnimation(callback) {
+        setTimeout(() => {
+
+            if (callback) callback();
+        }, 4000);
+    }
 
     // Выход из системы
     logoutBtn.addEventListener('click', () => {
@@ -168,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const nameCell = document.createElement('td');
             nameCell.textContent = file.file_name || 'Неизвестный файл';
-            console.log(file.file_name)
+
 
             const sizeCell = document.createElement('td');
             sizeCell.textContent = formatFileSize(file.size);
@@ -185,13 +198,35 @@ document.addEventListener('DOMContentLoaded', function() {
             const link = document.createElement('a');
             link.href = `/download/${file.id}`;
             link.textContent = 'Скачать';
-            link.target = '_blank';
             linkCell.appendChild(link);
+
+            const deleteCell = document.createElement('td');
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete');
+            deleteBtn.textContent = 'Удалить';
+            deleteBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(`/delete_file/${file.id}`, {
+                        method: 'GET'
+                    });
+
+                    if (response.status === 204) {
+                        row.remove(); //Удаляем строку таблицы
+
+                    } else {
+                        throw new Error('Ошибка удаления');
+                    }
+                } catch (error) {
+                    showMessage(error.message, 'error');
+                }
+            });
+            deleteCell.appendChild(deleteBtn);
 
             row.appendChild(nameCell);
             row.appendChild(sizeCell);
             row.appendChild(dateCell);
             row.appendChild(linkCell);
+            row.appendChild(deleteCell);
 
             tbody.appendChild(row);
         });
@@ -199,6 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Форматирование размера файла
     function formatFileSize(bytes) {
+
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
         const sizes = ['Bytes', 'Kb', 'Mb', 'Gb'];
@@ -211,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('auth-section').style.display = 'none';
         document.getElementById('upload-section').style.display = 'block';
         document.getElementById('stats-section').style.display = 'block';
+        document.getElementById('logout-btn').style.display = 'block';
         logoutBtn.style.display = 'block';
     }
 
@@ -230,11 +267,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Показать ссылку для скачивания
     function showDownloadLink(url) {
-        const linkContainer = document.getElementById('download-link-container');
         const linkElement = document.getElementById('download-link');
-
+         linkElement.style.display = 'block'
         linkElement.href = url;
         linkElement.textContent = window.location.origin + url;
-        linkContainer.style.display = 'block';
+
     }
 });

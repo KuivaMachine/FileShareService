@@ -5,30 +5,30 @@
     --font-color-sub: #666;
     --bg-color: #fff;
     --bg-color-alt: #666;
-    --main-color: #323232;
+    --main-color: #002A4D;
 
 }
 
 .error_message {
-    color: #7e0000;
+    color: white;
     background-color: transparent;
     margin: 0;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
     text-align: center;
     display: none;
 }
 
 .flip-card__front {
-    padding: 20px;
+    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    background: lightgrey;
+    background: #BBBAFF;
     gap: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 2px solid var(--main-color);
     box-shadow: 4px 4px var(--main-color);
 }
@@ -42,9 +42,9 @@
 }
 
 .title {
-    margin: 20px 0 20px 0;
-    font-size: 25px;
-    font-weight: 900;
+    margin: 0 0 30px 0;
+    font-size: 40px;
+    font-weight: 800;
     text-align: center;
     color: var(--main-color);
 }
@@ -52,7 +52,7 @@
 .flip-card__input {
     width: 250px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 2px solid var(--main-color);
     background-color: var(--bg-color);
     box-shadow: 4px 4px var(--main-color);
@@ -68,9 +68,6 @@
     opacity: 0.8;
 }
 
-.flip-card__input:focus {
-    border: 2px solid var(--input-focus);
-}
 
 .submit:active, .button-confirm:active {
     box-shadow: 0px 0px var(--main-color);
@@ -81,13 +78,13 @@
     margin: 0 0 20px 0;
     width: 120px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 2px solid var(--main-color);
     background-color: var(--bg-color);
     box-shadow: 4px 4px var(--main-color);
     font-size: 17px;
     font-weight: 600;
-    color: var(--font-color);
+    color: var(--main-color);
     cursor: pointer;
 }
 
@@ -116,7 +113,7 @@
 .header {
     cursor: pointer;
     flex: 1;
-
+    max-width:300px;
     width: 100%;
     border: 2px dashed royalblue;
     border-radius: 10px;
@@ -137,16 +134,15 @@
 }
 
 .footer {
-    background-color: rgba(0, 110, 255, 0.075);
+    background-color: rgba(0, 110, 255, 0.2);
     width: 100%;
     height: 40px;
-    padding: 8px;
+
     margin: 15px 0 15px 0;
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    color: black;
+
     border: none;
 }
 
@@ -157,83 +153,230 @@
     cursor: pointer;
 }
 
-#file-name{
-    flex: 1;
-    text-align: center;
+
+
+
+
+
+
+
+/* From Uiverse.io by Na3ar-17 */
+.upload_button {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
+.label {
+  background-color: transparent;
+  border: 2px solid rgb(91, 91, 240);
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  width: 160px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  padding: 5px;
+  position: relative;
+}
 
+.label::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #5B5BF0;
+  width: 8px;
+  height: 8px;
+  transition: all 0.4s ease;
+  border-radius: 100%;
+  margin: auto;
+  opacity: 0;
+  visibility: hidden;
+}
 
+.label .input {
+  display: none;
+}
 
+.label .title {
+  font-size: 17px;
+  color: #5B5BF0;
+  transition: all 0.4s ease;
+  font-weight:700;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-45%, -50%);
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding-left: 20px;
+  text-align: center;
+}
 
+.label .title:last-child {
+  opacity: 0;
+  visibility: hidden;
 
+}
 
+.label .circle {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  background-color: rgb(91, 91, 240);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+  position: relative;
+  box-shadow: 0 0 0 0 rgb(255, 255, 255);
+  overflow: hidden;
+}
 
+.label .circle .icon {
+  color: #fff;
+  width: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+}
 
-#upload_button {
-    position: relative;
-    display: none;
+.label .circle .square {
+  aspect-ratio: 1;
+  width: 15px;
+  border-radius: 2px;
+  background-color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+}
+
+.label .circle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #3333a3;
+  width: 100%;
+  height: 0;
+  transition: all 0.4s ease;
+}
+
+.label:has(.input:checked) {
+  width: 45px;
+  animation: installed 0.4s ease 3.5s forwards;
+}
+
+.label:has(.input:checked)::before {
+  animation: rotate 3s ease-in-out 0.4s forwards;
+}
+
+.label .input:checked + .circle {
+  animation:
+    pulse 1s forwards,
+    circleDelete 0.2s ease 3.5s forwards;
+  rotate: 180deg;
+}
+
+.label .input:checked + .circle::before {
+  animation: installing 3s ease-in-out forwards;
+}
+
+.label .input:checked + .circle .icon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.label .input:checked ~ .circle .square {
+  opacity: 1;
+  visibility: visible;
+}
+
+.label .input:checked ~ .title {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.label .input:checked ~ .title:last-child {
+  animation: showInstalledMessage 0.4s ease 3.5s forwards;
+}
+
+@keyframes pulse {
+  0% {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    scale: 1;
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0);
+  }
+  100% {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes installing {
+  from {
+    height: 0;
+  }
+  to {
     height: 100%;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: royalblue;
-    font-family: "Montserrat", sans-serif;
-    overflow: hidden;
-    cursor: pointer;
-    border: none;
+  }
 }
 
-#upload_button:after {
-    content: " ";
-    width: 0;
-    height: 100%;
-    background: #ffd401;
-    position: absolute;
-    transition: all 0.4s ease-in-out;
-    right: 0;
+@keyframes rotate {
+  0% {
+    transform: rotate(-90deg) translate(27px) rotate(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  99% {
+    transform: rotate(270deg) translate(27px) rotate(270deg);
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
-#upload_button:hover::after {
-    right: auto;
-    left: 0;
-    width: 100%;
+@keyframes installed {
+  100% {
+    width: 150px;
+    border-color: rgb(35, 174, 35);
+  }
 }
 
-#upload_button span {
-    text-align: center;
-    text-decoration: none;
-    width: 100%;
-    padding: 10px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.3em;
-    z-index: 20;
-    transition: all 0.3s ease-in-out;
+@keyframes circleDelete {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
-#upload_button:hover span {
-    color: #183153;
-    animation: scaleUp 0.3s ease-in-out;
+@keyframes showInstalledMessage {
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%);
+  }
 }
-
-@keyframes scaleUp {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(0.95);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-
-
 
 
 
@@ -247,11 +390,10 @@
 
 
 body {
-
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #E6E6E6;
 }
 .container {
     display: flex;
@@ -262,13 +404,16 @@ body {
     margin: 0 auto;
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 
     align-items: center;
     justify-content: center;
     text-align: center;
 }
+
+
+
 
 h2 {
     color: #333;
@@ -279,45 +424,237 @@ h2 {
 }
 form {
     display: flex;
+
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
 
 
+/* Контейнер */
+#download-container {
+  display: none;
+  align-items: center;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  max-width: 100%;
+}
 
+/* Ссылка на скачивание */
 #download-link {
-    word-break: break-all;
-    color: #337ab7;
-    text-decoration: none;
+  display: inline-block;
+  padding: 12px 20px;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
 }
 
-#download-link:hover {
-    text-decoration: underline;
+/* Кнопка удаления */
+#delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  padding: 0;
+  margin: 0;
 }
 
-table {
+#delete-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Эффекты при наведении */
+#download-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(103, 58, 183, 0.3);
+  background: linear-gradient(135deg, #6e8efb, #8e54e9);
+}
+
+#delete-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#delete-btn:active {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  #download-container {
+    flex-direction: column;
+    border-radius: 25px;
+  }
+
+  #download-link {
+    max-width: 200px;
+    padding: 10px 15px;
+  }
+
+  #delete-btn {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    height: 36px;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
 
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+
+
+/* Основные стили таблицы */
+#stats-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10;
+    background-color: linear-gradient(145deg, #ffffff, #f9f9f9);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 25px 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-th {
-    background-color: #f2f2f2;
+/* Заголовки столбцов */
+#stats-table th {
+    background-color: rgb(91, 91, 240);
+    border: 1px solid rgba(0, 0, 180, 1);
+    border-radius:10px;
+    color: white;
+    padding: 18px 24px;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+
+    top: 0;
+
 }
 
-#logout-btn {
-    background-color: #f44336;
-    margin-top: 20px;
+/* Ячейки таблицы */
+#stats-table td {
 
+    border-radius:10px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    vertical-align: middle;
 }
 
-#logout-btn:hover {
-    background-color: #d32f2f;
+
+/* Эффекты при наведении */
+#stats-table tr:hover td {
+    background: rgba(230, 230, 230, 1);
+    transform: translateX(5px);
 }
+
+/* Стиль для ссылки скачивания */
+#stats-table a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 176, 155, 0.2);
+}
+
+#stats-table a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 176, 155, 0.3);
+    background: linear-gradient(135deg, #00b09b, #76b852);
+}
+
+/* Стиль для ссылки удаления */
+#stats-table button.delete {
+    display: block;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #FF0000, #8A0000);
+    color: white;
+    border: none;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 176, 155, 0.2);
+}
+
+#stats-table button.delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(158, 0, 0, 0.3);
+    background: linear-gradient(135deg, #FF0000, #8A0000);
+}
+
+/* Анимация появления строк */
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#stats-table tbody tr {
+    animation: fadeInRow 0.4s ease forwards;
+    opacity: 0;
+}
+
+
+/* Стиль для ячейки с датой */
+#stats-table td:nth-child(3) {
+    font-family: 'Roboto Mono', monospace;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Стиль для размера файла */
+#stats-table td:nth-child(2) {
+    font-weight: 500;
+    color: #444;
+}
+
+
+
+.logout-btn {
+  display:none;
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 1em 2em;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  border: 1px solid black;
+  box-shadow: 0 0 0 0 black;
+}
+
+.logout-btn:hover {
+  transform: translateY(-4px) translateX(-2px);
+  box-shadow: 2px 5px 0 0 black;
+};

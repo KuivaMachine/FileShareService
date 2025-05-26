@@ -36,6 +36,7 @@ public class Main {
         server.createContext("/", new ViewHandler());
         server.createContext("/auth", new AuthHandler(authService));
         server.createContext("/statistic", new StatisticHandler(fileRepository));
+        server.createContext("/delete_file/", new DeleteHandler(fileRepository));
         server.setExecutor(Executors.newCachedThreadPool());
         server.start();
         System.out.println("Server started, port 9092");
